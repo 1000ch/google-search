@@ -1,13 +1,16 @@
 package main
 
 import (
+	"os"
 	"flag"
+	"strings"
 	"net/url"
 	"github.com/skratchdot/open-golang/open"
 )
 
 func main() {
-	w := flag.String("w", "", "Search word")
+	args := os.Args[1:]
+	w := strings.Join(args, " ")
 	t := flag.Int("t", 0, "Search type (0:normal, 1:image)")
 	flag.Parse()
 
@@ -19,7 +22,7 @@ func main() {
 	href.Path += "/search"
 
 	params := url.Values{}
-	params.Add("q", *w)
+	params.Add("q", w)
 	if *t == 1 {
 		params.Add("tbm", "isch")
 	}
